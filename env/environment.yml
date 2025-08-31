@@ -1,0 +1,22 @@
+name: wsiqc
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - numpy
+  - scipy
+  - pandas
+  - scikit-image
+  - scikit-learn
+  - matplotlib
+  - pillow
+  - openslide
+  - pip:
+      - openslide-python
+      - opencv-python
+      - tqdm
+      - anndata
+      - scanpy
+      - squidpy
+      - tissuumaps
