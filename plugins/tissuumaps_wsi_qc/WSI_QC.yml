@@ -1,0 +1,5 @@
+﻿---
+name: WSI QC
+version: 0.1
+author: wsi-qc
+description: Run the WSI-QC pipeline and visualize QC, stripe, bubble and fold overlays in TissUUmaps.
