@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -21,3 +22,23 @@ mlruns/
 *.swp
 .idea/
 .vscode/
+=======
+﻿# Python
+__pycache__/
+*.pyc
+.venv/
+env/
+.ipynb_checkpoints/
+
+# Data & outputs
+data/raw/
+data/interim/
+results/
+logs/
+
+# OS/Editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+>>>>>>> d44b7d6 (chore: bootstrap repo)
