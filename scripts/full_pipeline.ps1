@@ -32,7 +32,10 @@ if ([string]::IsNullOrWhiteSpace($gammaInput)) { $gamma = 1.0 } else { $gamma = 
 # Derived paths
 $tilesDir = Join-Path $outRoot "tiles"
 $qcCsv = Join-Path $outRoot "qc.csv"
-$qcOverlayCsv = Join-Path $outRoot "overlay.csv"
+$qcOverlayCsv = Join-Path $outRoot "overlay_qc.csv"
+$stripeOverlayCsv = Join-Path $outRoot "overlay_stripe.csv"
+$bubbleOverlayCsv = Join-Path $outRoot "overlay_bubble.csv"
+$foldOverlayCsv = Join-Path $outRoot "overlay_fold.csv"
 $tilesIndexCsv = Join-Path $outRoot "tiles_index.csv"
 $normDir = Join-Path $outRoot "example_norm"
 $deltaeTilesCsv = Join-Path $normDir "deltae_tiles.csv"
@@ -54,7 +57,12 @@ RunStep "1/9 tile_wsi" { python scripts/tile_wsi.py --wsi "$wsi" --out "$outRoot
 
 # 2) QC scoring
 RunStep "2/9 qc_score_tiles" { python scripts/qc_score_tiles.py --tiles "$tilesDir" --out "$qcCsv" }
-RunStep "3/9 export_heatmap_to_tissuumaps" { python scripts/export_heatmap_to_tissuumaps.py --tile_csv "$qcCsv" --out "$qcOverlayCsv" }
+RunStep "3/9 export_heatmap_to_tissuumaps" {
+  python scripts/export_heatmap_to_tissuumaps.py --tile_csv "$qcCsv" --metric qc_score   --out "$qcOverlayCsv"
+  python scripts/export_heatmap_to_tissuumaps.py --tile_csv "$qcCsv" --metric stripe_score --out "$stripeOverlayCsv"
+  python scripts/export_heatmap_to_tissuumaps.py --tile_csv "$qcCsv" --metric bubble_score --out "$bubbleOverlayCsv"
+  python scripts/export_heatmap_to_tissuumaps.py --tile_csv "$qcCsv" --metric fold_score   --out "$foldOverlayCsv"
+}
 
 # 3) Calibrate stain reference if needed
 if (-not (Test-Path -Path "$refJson")) {
